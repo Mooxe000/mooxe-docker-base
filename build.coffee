@@ -5,7 +5,7 @@ require 'shelljs/make'
 _ = require 'lodash'
 
 target.build = ->
-  exec 'docker build -t mooxe/base ./src'
+  exec 'docker build -t mooxe/base .'
 
 target.in = ->
   exec 'docker run -t -i mooxe/base /bin/bash'
