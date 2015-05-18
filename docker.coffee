@@ -69,6 +69,12 @@ target.clean = ->
   clean_docker()
   clean_images()
 
+target.save = ->
+  exec 'docker save -o mooxe.base.tar mooxe/base'
+
+target.load = ->
+  exec 'docker load -i mooxe.base.tar'
+
 target.all = ->
 
   target.clean()

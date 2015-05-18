@@ -61,4 +61,9 @@
     $ sudo groupadd docker
     $ sudo gpasswd -a ${USER} docker
 
+- daocloud 加速
+
+    $ echo "DOCKER_OPTS=\"\$DOCKER_OPTS --registry-mirror=http://c2095577.m.daocloud.io\"" | sudo tee -a /etc/default/docker
+    $ sudo service docker restart
+
 - Web 控制台 重启系统 并 ssh 重登陆

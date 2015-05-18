@@ -8,7 +8,6 @@ COPY resource/sudoers /etc/sudoers
 # SYSTEM
 
 ENV DEBIAN_FRONTEND noninteractive
-
 RUN \
 
   # Locale
@@ -22,12 +21,22 @@ RUN \
   apt-get -y upgrade && \
   apt-get install -y git-core curl && \
 
+  # user
+  echo "root:netserver" | chpasswd && \
+  groupadd wheel && \
+  useradd docker -d /home/docker -m -g wheel -s /bin/bash && \
+  echo "docker:netserver" | chpasswd && \
+
   # zsh && fish
-  apt-get install -y fish zsh && \
+  apt-get install -y fish zsh
 
+# Docker
+USER docker
+WORKDIR /home/docker
+
+RUN \
   # oh my zsh
-  zsh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
-
+  echo 'netserver' | zsh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
   # oh my fish
   git clone git://github.com/bpinto/oh-my-fish.git ~/.oh-my-fish && \
   mkdir -p ~/.config/fish && \
