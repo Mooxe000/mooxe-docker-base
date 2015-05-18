@@ -8,6 +8,7 @@ COPY resource/sudoers /etc/sudoers
 # SYSTEM
 
 ENV DEBIAN_FRONTEND noninteractive
+WORKDIR /home/root
 
 RUN \
 
