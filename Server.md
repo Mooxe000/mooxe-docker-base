@@ -24,7 +24,7 @@
 
     $ sudo apt-get update
     $ sudo apt-get upgrade -y
-    $ sudo apt-get install -y curl axel git-core
+    $ sudo apt-get install -y curl axel git-core nload htop
 
 - zsh fish
 
@@ -47,8 +47,8 @@
 - docker-machine
 
     $ curl -L https://github.com/docker/machine/releases/download/v0.2.0/docker-machine_linux-amd64 > docker-machine
-    $ chown root:root docker-machine
-    $ chmod +x docker-machine
+    $ sudo chown root:root docker-machine
+    $ sudo chmod +x docker-machine
     $ sudo mv docker-machine /usr/local/bin
 
 - docker-compose
