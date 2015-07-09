@@ -20,6 +20,9 @@
   ],
   "bin": {},
   "scripts": {
+    "build": "docker build -t mooxe/base .",
+    "in": "docker run -t -i mooxe/base /bin/bash",
+    "push": "docker push mooxe/base",
     "test": "echo 'hello'"
   },
   "dependencies": {},

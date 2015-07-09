@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 MAINTAINER FooTearth "footearth@gmail.com"
 
-COPY resource/sources/163.sources.list /etc/apt/sources.list
+COPY resource/sources/aliyun.sources.list /etc/apt/sources.list
 COPY resource/sudoers /etc/sudoers
 
 # SYSTEM

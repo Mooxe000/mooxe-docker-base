@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 MAINTAINER FooTearth "footearth@gmail.com"
 
-COPY resource/sources/163.sources.list /etc/apt/sources.list
+COPY resource/sources/aliyun.sources.list /etc/apt/sources.list
 COPY resource/sudoers /etc/sudoers
 
 # SYSTEM
@@ -27,10 +27,16 @@ RUN \
   apt-get install -y fish zsh && \
 
   # oh my zsh
-  zsh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" && \
+  # zsh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
+  # cp ~/.zshrc ~/.zshrc.orig && \
+  cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc && \
 
   # oh my fish
-  git clone git://github.com/bpinto/oh-my-fish.git ~/.oh-my-fish && \
+  # curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/tools/install.fish | fish
+  git clone https://github.com/bpinto/oh-my-fish.git ~/.oh-my-fish && \
+  git clone https://github.com/oh-my-fish/plugin-theme.git  ~/.oh-my-fish/plugins/theme && \
+  git clone https://github.com/oh-my-fish/theme-robbyrussell.git ~/.oh-my-fish/themes/robbyrussell && \
   mkdir -p ~/.config/fish && \
   sed -e "1i \
 set fish_greeting '' \n\
