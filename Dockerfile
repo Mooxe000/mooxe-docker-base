@@ -5,6 +5,8 @@ MAINTAINER FooTearth "footearth@gmail.com"
 COPY resource/sources/aliyun.sources.list /etc/apt/sources.list
 COPY resource/sudoers /etc/sudoers
 
+COPY resource/install_omf.py /tmp/omf/install_omf.py
+
 # SYSTEM
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -20,27 +22,44 @@ RUN \
   # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5 && \
   # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
 
+  # extra ppa
+
   apt-get update && \
   apt-get -y upgrade && \
-  apt-get install -y git-core curl && \
+  apt-get -y autoremove && \
+  apt-get install -y git-core curl axel htop && \
+
+  apt-get install -y software-properties-common && \
+  add-apt-repository ppa:fish-shell/nightly-master && \
+
+  apt-get update && \
+  apt-get -y upgrade && \
+  apt-get -y autoremove && \
 
   # zsh && fish
-  apt-get install -y fish zsh && \
+  apt-get install -y fish zsh
 
-  # oh my zsh
-  # zsh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# oh my zsh
+RUN \
+
   git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
-  # cp ~/.zshrc ~/.zshrc.orig && \
-  cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc && \
+  cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
 
-  # oh my fish
-  # curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/tools/install.fish | fish
-  git clone https://github.com/bpinto/oh-my-fish.git ~/.oh-my-fish && \
-  git clone https://github.com/oh-my-fish/plugin-theme.git  ~/.oh-my-fish/plugins/theme && \
-  git clone https://github.com/oh-my-fish/theme-robbyrussell.git ~/.oh-my-fish/themes/robbyrussell && \
-  mkdir -p ~/.config/fish && \
+# oh my fish
+RUN \
+
+  mkdir -p /tmp/omf && \
+  curl -L git.io/omf > /tmp/omf/install && \
+  chmod +x /tmp/omf/install && \
+  chmod +x /tmp/omf/install_omf.py && \
+  bash -c '/tmp/omf/install_omf.py' && \
+  bash -c '/tmp/omf/install'
+
+RUN \
+  mv ~/.config/fish/config.fish ~/.config/fish/config.fish.bak && \
   sed -e "1i \
 set fish_greeting '' \n\
 set -x LC_ALL en_US.UTF-8 \n\
 set -x LC_CTYPE en_US.UTF-8 \n\
-  " ~/.oh-my-fish/templates/config.fish > ~/.config/fish/config.fish
+  " ~/.config/fish/config.fish.bak > ~/.config/fish/config.fish && \
+  fish -c 'omf theme robbyrussell'
