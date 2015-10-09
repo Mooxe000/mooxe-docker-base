@@ -22,19 +22,29 @@ RUN \
   # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5 && \
   # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
 
-  # extra ppa
-
+  ###############
+  # system update
+  ###############
+  apt-get update && \
   apt-get update && \
   apt-get -y upgrade && \
   apt-get -y autoremove && \
+  ###############
+
   apt-get install -y git-core curl axel htop && \
 
+  # extra ppa
   apt-get install -y software-properties-common && \
   add-apt-repository ppa:fish-shell/nightly-master && \
 
+  ###############
+  # system update
+  ###############
+  apt-get update && \
   apt-get update && \
   apt-get -y upgrade && \
   apt-get -y autoremove && \
+  ###############
 
   # zsh && fish
   apt-get install -y fish zsh
@@ -49,7 +59,12 @@ RUN \
 RUN \
 
   mkdir -p /tmp/omf && \
-  curl -L git.io/omf > /tmp/omf/install && \
+
+  curl -L \
+    -o /tmp/omf/install \
+    "http://git.io/omf" \
+  && \
+
   chmod +x /tmp/omf/install && \
   chmod +x /tmp/omf/install_omf.py && \
   bash -c '/tmp/omf/install_omf.py' && \

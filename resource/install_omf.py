@@ -24,7 +24,7 @@ def handle_install_file():
         lines = f.readlines()
         for index, line in enumerate(lines):
             if 'cd $HOME' in line or \
-                '[ -z ${CI+_} ]' in line:
+                'set -q CI' in line:
                 lines[index] = '#{line}'.format(
                     line = line
                 )

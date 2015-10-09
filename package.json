@@ -21,7 +21,8 @@
   "bin": {},
   "scripts": {
     "build": "docker build -t mooxe/base .",
-    "in": "docker run -t -i mooxe/base /bin/bash",
+    "rebuild": "docker build --no-cache -t mooxe/base .",
+    "in": "docker run --name=base --rm -ti -v `pwd`:/root/base mooxe/base /bin/bash",
     "push": "docker push mooxe/base",
     "test": "echo 'hello'"
   },
