@@ -19,35 +19,30 @@ RUN \
   locale-gen en_US.UTF-8 && \
   /usr/sbin/update-locale LANG=en_US.UTF-8 && \
 
-  # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5 && \
-  # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 && \
+  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5 && \
+  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
 
-  ###############
-  # system update
-  ###############
-  apt-get update && \
+# system update
+RUN \
   apt-get update && \
   apt-get -y upgrade && \
-  apt-get -y autoremove && \
-  ###############
+  apt-get -y autoremove
 
+RUN \
   apt-get install -y git-core curl axel htop && \
 
   # extra ppa
   apt-get install -y software-properties-common && \
-  add-apt-repository ppa:fish-shell/nightly-master && \
+  add-apt-repository ppa:fish-shell/nightly-master
 
-  ###############
-  # system update
-  ###############
-  apt-get update && \
+# system update
+RUN \
   apt-get update && \
   apt-get -y upgrade && \
-  apt-get -y autoremove && \
-  ###############
+  apt-get -y autoremove
 
-  # zsh && fish
-  apt-get install -y fish zsh
+# zsh && fish
+RUN apt-get install -y fish zsh
 
 # oh my zsh
 RUN \
@@ -67,8 +62,8 @@ RUN \
 
   chmod +x /tmp/omf/install && \
   chmod +x /tmp/omf/install_omf.py && \
-  bash -c '/tmp/omf/install_omf.py' && \
-  bash -c '/tmp/omf/install'
+  bash -lc '/tmp/omf/install_omf.py' && \
+  bash -lc '/tmp/omf/install'
 
 RUN \
   mv ~/.config/fish/config.fish ~/.config/fish/config.fish.bak && \
@@ -77,4 +72,4 @@ set fish_greeting '' \n\
 set -x LC_ALL en_US.UTF-8 \n\
 set -x LC_CTYPE en_US.UTF-8 \n\
   " ~/.config/fish/config.fish.bak > ~/.config/fish/config.fish && \
-  fish -c 'omf theme robbyrussell'
+  fish -c 'omf install robbyrussell'
