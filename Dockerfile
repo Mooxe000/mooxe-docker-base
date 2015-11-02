@@ -41,6 +41,11 @@ RUN \
   apt-get -y upgrade && \
   apt-get -y autoremove
 
+# Bash-it
+RUN \
+  git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
+  bash -lc "~/.bash_it/install.sh"
+
 # zsh && fish
 RUN apt-get install -y fish zsh
 
@@ -49,10 +54,12 @@ RUN \
 
   git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
   cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+  # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # oh my fish
 RUN \
 
+  # curl -L github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
   mkdir -p /tmp/omf && \
 
   curl -L \
