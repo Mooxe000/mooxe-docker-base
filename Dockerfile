@@ -13,27 +13,24 @@ ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /root
 
-RUN \
+# Locale
+RUN locale-gen en_US.UTF-8 && \
+    /usr/sbin/update-locale LANG=en_US.UTF-8 && \
 
-  # Locale
-  locale-gen en_US.UTF-8 && \
-  /usr/sbin/update-locale LANG=en_US.UTF-8 && \
-
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5 && \
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 40976EAF437D05B5 && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32
 
 # system update
-RUN \
-  apt-get update && \
-  apt-get -y upgrade && \
-  apt-get -y autoremove
+RUN apt-get update && \
+    apt-get -y upgrade && \
+    apt-get -y autoremove
 
-RUN \
-  apt-get install -y git-core curl axel htop && \
+RUN apt-get install -y aptitude && \
+    apt-get install -y git-core curl axel htop && \
 
-  # extra ppa
-  apt-get install -y software-properties-common && \
-  add-apt-repository ppa:fish-shell/nightly-master
+    # extra ppa
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:fish-shell/nightly-master
 
 # system update
 RUN \
