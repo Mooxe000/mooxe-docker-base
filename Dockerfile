@@ -33,47 +33,40 @@ RUN apt-get install -y aptitude && \
     add-apt-repository ppa:fish-shell/nightly-master
 
 # system update
-RUN \
-  apt-get update && \
-  apt-get -y upgrade && \
-  apt-get -y autoremove
+RUN aptitude update && \
+    aptitude upgrade -y && \
+    apt-get autoremove -y
 
 # Bash-it
-RUN \
-  git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
-  bash -lc "~/.bash_it/install.sh"
+RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
+    bash -lc "~/.bash_it/install.sh"
 
 # zsh && fish
 RUN apt-get install -y fish zsh
 
 # oh my zsh
-RUN \
-
-  git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
-  cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-  # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
+    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+    # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # oh my fish
-RUN \
+RUN mkdir -p /tmp/omf && \
+    # curl -L github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
 
-  # curl -L github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
-  mkdir -p /tmp/omf && \
+    curl -L \
+      -o /tmp/omf/install \
+      "http://git.io/omf" \
+    && \
 
-  curl -L \
-    -o /tmp/omf/install \
-    "http://git.io/omf" \
-  && \
+    chmod +x /tmp/omf/install && \
+    chmod +x /tmp/omf/install_omf.py && \
+    bash -lc '/tmp/omf/install_omf.py' && \
+    bash -lc '/tmp/omf/install'
 
-  chmod +x /tmp/omf/install && \
-  chmod +x /tmp/omf/install_omf.py && \
-  bash -lc '/tmp/omf/install_omf.py' && \
-  bash -lc '/tmp/omf/install'
-
-RUN \
-  mv ~/.config/fish/config.fish ~/.config/fish/config.fish.bak && \
-  sed -e "1i \
+RUN mv ~/.config/fish/config.fish ~/.config/fish/config.fish.bak && \
+    sed -e "1i \
 set fish_greeting '' \n\
 set -x LC_ALL en_US.UTF-8 \n\
 set -x LC_CTYPE en_US.UTF-8 \n\
-  " ~/.config/fish/config.fish.bak > ~/.config/fish/config.fish && \
-  fish -c 'omf install robbyrussell'
+    " ~/.config/fish/config.fish.bak > ~/.config/fish/config.fish && \
+    fish -c 'omf install robbyrussell'
