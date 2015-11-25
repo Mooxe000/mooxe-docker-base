@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 MAINTAINER FooTearth "footearth@gmail.com"
 
-COPY resource/sources/aliyun.sources.list /etc/apt/sources.list
+COPY resource/sources /etc/apt/china
 COPY resource/sudoers /etc/sudoers
 
 COPY resource/install_omf.py /tmp/omf/install_omf.py
@@ -12,6 +12,9 @@ COPY resource/install_omf.py /tmp/omf/install_omf.py
 ENV DEBIAN_FRONTEND noninteractive
 
 WORKDIR /root
+
+RUN cp /etc/apt/sources.list /etc/apt/china/ubuntu && \
+    cp /etc/apt/china/aliyun /etc/apt/sources.list
 
 # Locale
 RUN locale-gen en_US.UTF-8 && \
