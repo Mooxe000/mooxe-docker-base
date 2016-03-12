@@ -37,6 +37,7 @@ RUN apt-get install -y aptitude && \
 
     # extra ppa
     apt-get install -y software-properties-common && \
+
     add-apt-repository ppa:git-core/ppa && \
     add-apt-repository ppa:fish-shell/nightly-master
 
@@ -57,22 +58,6 @@ RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
     # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-
-
-# oh my fish
-# RUN
-    # mkdir -p /tmp/omf && \
-    # curl -L github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
-
-    # curl -L \
-    #   -o /tmp/omf/install \
-    #   "http://git.io/omf" \
-
-    # chmod +x /tmp/omf/install && \
-    # chmod +x /tmp/omf/install_omf.py && \
-    # bash -lc '/tmp/omf/install_omf.py' && \
-    # bash -lc '/tmp/omf/install'
-
 # fisherman
 # curl -sL get.fisherman.sh | fish
 RUN git clone https://github.com/fisherman/fisherman ~/.local/share/fisherman && \
@@ -80,7 +65,11 @@ RUN git clone https://github.com/fisherman/fisherman ~/.local/share/fisherman &&
     cd ~/.local/share/fisherman && \
     make && cd ~
 
-    # TODO 目前没有 docker 适合的 theme.
+# RUN fish -lc "fisher i robbyrussell"
+RUN git clone https://github.com/oh-my-fish/theme-robbyrussell.git \
+      ~/.config/fisherman/cache/robbyrussell && \
+    echo 'source ~/.config/fisherman/cache/robbyrussell/fish_prompt.fish' >> \
+      ~/.config/fish/config.fish
 
 RUN mv ~/.config/fish/config.fish ~/.config/fish/config.fish.bak && \
     sed -e "1i \
@@ -88,7 +77,5 @@ set fish_greeting '' \n\
 set -x LC_ALL en_US.UTF-8 \n\
 set -x LC_CTYPE en_US.UTF-8 \n\
     " ~/.config/fish/config.fish.bak > ~/.config/fish/config.fish
-
-# RUN fish -c 'omf install robbyrussell'
 
 # RUN cp /etc/apt/china/aliyun /etc/apt/sources.list
