@@ -3,9 +3,11 @@ FROM ubuntu:latest
 MAINTAINER FooTearth "footearth@gmail.com"
 
 COPY resource/sources /etc/apt/china
-COPY resource/sudoers /etc/sudoers
 
-COPY resource/install_omf.py /tmp/omf/install_omf.py
+# TODO use gosu
+# COPY resource/sudoers /etc/sudoers
+
+# COPY resource/install_omf.py /tmp/omf/install_omf.py
 
 # SYSTEM
 
@@ -32,26 +34,27 @@ RUN apt-get update && \
     apt-get -y upgrade && \
     apt-get -y autoremove
 
-RUN apt-get install -y aptitude && \
-    apt-get install -y git-core curl axel htop make && \
-
-    # extra ppa
-    apt-get install -y software-properties-common && \
+# extra ppa
+RUN apt-get install -y software-properties-common && \
 
     add-apt-repository ppa:git-core/ppa && \
     add-apt-repository ppa:fish-shell/nightly-master
+
+RUN apt-get install -y aptitude
 
 # system update
 RUN aptitude update && \
     aptitude upgrade -y && \
     apt-get autoremove -y
 
+RUN aptitude install -y git-core curl axel htop make
+
 # Bash-it
 RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
     bash -lc "~/.bash_it/install.sh"
 
 # zsh && fish
-RUN apt-get install -y fish zsh
+RUN aptitude install -y fish zsh
 
 # oh my zsh
 RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
