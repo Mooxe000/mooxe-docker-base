@@ -7,8 +7,8 @@ WORKDIR /root
 RUN apk upgrade --update && \
     apk add --update \
       curl ca-certificates bash \
-      coreutils util-linux bc sed \
-      git zsh fish make
+      coreutils util-linux bc sed mdocml-apropos \
+      git zsh fish make tar
 
 RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
     bash -lc "~/.bash_it/install.sh"
