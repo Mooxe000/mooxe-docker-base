@@ -50,35 +50,38 @@ RUN aptitude update && \
 RUN aptitude install -y git-core curl axel htop make
 
 # Bash-it
-RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it && \
+RUN git clone --depth=1 https://github.com/Bash-it/bash-it.git \
+      ~/.bash_it && \
     bash -lc "~/.bash_it/install.sh"
 
 # zsh && fish
 RUN aptitude install -y fish zsh
 
 # oh my zsh
-RUN git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh && \
+RUN git clone https://github.com/robbyrussell/oh-my-zsh.git \
+      ~/.oh-my-zsh && \
     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
     # sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # fisherman
 # curl -sL get.fisherman.sh | fish
-RUN git clone https://github.com/fisherman/fisherman ~/.local/share/fisherman && \
+RUN curl -Lo ~/.config/fish/functions/fisher.fish \
+      --create-dirs git.io/fisherman
+# RUN git clone https://github.com/fisherman/fisherman ~/.local/share/fisherman && \
+#
+#     cd ~/.local/share/fisherman && \
+#     make && cd ~
 
-    cd ~/.local/share/fisherman && \
-    make && cd ~
+RUN fish -lc "fisher omf/theme-robbyrussell"
+# RUN git clone https://github.com/oh-my-fish/theme-robbyrussell.git \
+#       ~/.config/fisherman/cache/robbyrussell && \
+#     echo 'source ~/.config/fisherman/cache/robbyrussell/fish_prompt.fish' >> \
+#       ~/.config/fish/config.fish
 
-# RUN fish -lc "fisher i robbyrussell"
-RUN git clone https://github.com/oh-my-fish/theme-robbyrussell.git \
-      ~/.config/fisherman/cache/robbyrussell && \
-    echo 'source ~/.config/fisherman/cache/robbyrussell/fish_prompt.fish' >> \
-      ~/.config/fish/config.fish
-
-RUN mv ~/.config/fish/config.fish ~/.config/fish/config.fish.bak && \
-    sed -e "1i \
+RUN echo "\
 set fish_greeting '' \n\
 set -x LC_ALL en_US.UTF-8 \n\
-set -x LC_CTYPE en_US.UTF-8 \n\
-    " ~/.config/fish/config.fish.bak > ~/.config/fish/config.fish
+set -x LC_CTYPE en_US.UTF-8 \ 
+  " > ~/.config/fish/config.fish
 
 # RUN cp /etc/apt/china/aliyun /etc/apt/sources.list
