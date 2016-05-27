@@ -22,7 +22,7 @@
   "scripts": {
     "build": "docker build -t mooxe/base .",
     "rebuild": "docker build --no-cache -t mooxe/base .",
-    "in": "docker run --name=base --rm -ti -v `pwd`:/root/base mooxe/base /bin/bash",
+    "in": "docker run --name=base --rm -ti -v `pwd`:/root/base mooxe/base /bin/sh",
     "push": "docker push mooxe/base",
     "test": "echo 'hello'"
   },
