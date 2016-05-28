@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:14.04
 
 MAINTAINER FooTearth "footearth@gmail.com"
 
@@ -81,7 +81,7 @@ RUN fish -lc "fisher omf/theme-robbyrussell"
 RUN echo "\
 set fish_greeting '' \n\
 set -x LC_ALL en_US.UTF-8 \n\
-set -x LC_CTYPE en_US.UTF-8 \ 
+set -x LC_CTYPE en_US.UTF-8 \
   " > ~/.config/fish/config.fish
 
 # RUN cp /etc/apt/china/aliyun /etc/apt/sources.list
