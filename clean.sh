@@ -8,6 +8,7 @@ for i in "${ids[@]}"; do
 done
 
 ids=($(docker ps -a | grep 'Exited (' | awk '{ print $1 }'))
+ids+=($(docker ps -a | grep 'Create' | awk '{ print $1 }'))
 
 for i in "${ids[@]}"; do
   docker rm -f $i
