@@ -3,13 +3,14 @@
 ppa:
 	apt-get install -y software-properties-common
 	add-apt-repository ppa:git-core/ppa
-	add-apt-repository ppa:fish-shell/nightly-maste
+	add-apt-repository ppa:fish-shell/nightly-master
 	add-apt-repository cloud-archive:ocata
 
 sources:
 	cat \
 		/etc/apt/sources.list.d/fish-shell-ubuntu-nightly-master-xenial.list \
 		/etc/apt/sources.list.d/git-core-ubuntu-ppa-xenial.list \
+		/etc/apt/sources.list.d/cloudarchive-ocata.list \
 		> /etc/apt/mirror.list
 
 mirror:
