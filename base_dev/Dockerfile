@@ -76,6 +76,7 @@ set -x LC_CTYPE en_US.UTF-8 \
 
 RUN \
   if [ ! -z ${MIRROR_LP} ]; then \
+    rm -rf /etc/apt/sources.list.d; \
     mv /etc/apt/sources.list.d.bak \
       /etc/apt/sources.list.d; \
   fi
