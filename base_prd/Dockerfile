@@ -21,11 +21,11 @@ RUN \
 
 # system update
 RUN \
-  apt update && \
-  apt -y upgrade
+  apt-get update && \
+  apt-get -y upgrade
 
-RUN apt install -y curl
+RUN apt-get install -y curl apt-utils
 
 RUN \
-  apt autoremove -y && \
-  apt clean
+  apt-get autoremove -y && \
+  apt-get clean

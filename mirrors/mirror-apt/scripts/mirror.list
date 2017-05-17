@@ -1,0 +1,6 @@
+deb http://ppa.launchpad.net/fish-shell/nightly-master/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/fish-shell/nightly-master/ubuntu xenial main
+deb http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
+# deb-src http://ppa.launchpad.net/git-core/ppa/ubuntu xenial main
+deb http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/ocata main
+# deb-src http://ubuntu-cloud.archive.canonical.com/ubuntu xenial-updates/ocata main

@@ -1,7 +1,8 @@
 #
+ImageName := mooxe/base:prd
 
 build:
-	docker build -t mooxe/base:prd .
+	docker build -t $(ImageName) .
 
 rebuild:
-	docker build --no-cache -t mooxe/base:prd .
+	docker build --no-cache -t $(ImageName) .

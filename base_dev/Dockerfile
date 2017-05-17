@@ -4,23 +4,41 @@ MAINTAINER FooTearth "footearth@gmail.com"
 
 # extra ppa
 RUN \
-  apt install -y software-properties-common && \
+  apt-get install -y software-properties-common && \
   add-apt-repository ppa:git-core/ppa && \
   add-apt-repository ppa:fish-shell/nightly-master
 
+# Launchpad locale mirror
+ARG MIRROR_LP
+ENV MIRROR_LP ${MIRROR_LP}
+
+# echo "1: ${MIRROR_LP}" && \
+# echo "2: ${MIRROR_LP}"; \
+RUN \
+  if [ ! -z ${MIRROR_LP} ]; then \
+    cp -R /etc/apt/sources.list.d \
+      /etc/apt/sources.list.d.bak; \
+    for sl_file in `ls /etc/apt/sources.list.d/`; do \
+      # cat /etc/apt/sources.list.d/${sl_file}; \
+      sed -i -e \
+        "s/ppa.launchpad.net/${MIRROR_LP}/g" \
+        /etc/apt/sources.list.d/${sl_file}; \
+    done; \
+  fi
+
 # system update
 RUN \
-  apt update && \
-  apt -y upgrade
+  apt-get update && \
+  apt-get -y upgrade
 
-RUN apt install -y git
+RUN apt-get install -y git
 
 # zsh && fish
-RUN apt install -y fish zsh
+RUN apt-get install -y fish zsh
 
 RUN \
-  apt autoremove -y && \
-  apt clean
+  apt-get autoremove -y && \
+  apt-get clean
 
 # Bash-it
 RUN \
@@ -55,3 +73,9 @@ set fish_greeting '' \n\
 set -x LC_ALL en_US.UTF-8 \n\
 set -x LC_CTYPE en_US.UTF-8 \
   " > ~/.config/fish/config.fish
+
+RUN \
+  if [ ! -z ${MIRROR_LP} ]; then \
+    mv /etc/apt/sources.list.d.bak \
+      /etc/apt/sources.list.d; \
+  fi
