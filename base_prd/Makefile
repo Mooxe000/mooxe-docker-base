@@ -6,3 +6,6 @@ build:
 
 rebuild:
 	docker build --no-cache -t $(ImageName) .
+
+publish:
+	docker push ${ImageName}
