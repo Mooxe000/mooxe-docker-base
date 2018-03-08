@@ -6,7 +6,8 @@ MAINTAINER FooTearth "footearth@gmail.com"
 RUN \
   apt-get install -y software-properties-common && \
   add-apt-repository ppa:git-core/ppa && \
-  add-apt-repository ppa:fish-shell/nightly-master
+  apt-add-repository ppa:fish-shell/release-2
+  # add-apt-repository ppa:fish-shell/nightly-master
 
 # Launchpad locale mirror
 ARG MIRROR_LP
