@@ -2,12 +2,23 @@ FROM mooxe/base:prd
 
 MAINTAINER FooTearth "footearth@gmail.com"
 
+# system update
+RUN \
+  apt-get update && \
+  apt-get -y upgrade
+
 # extra ppa
 RUN \
   apt-get install -y software-properties-common && \
   add-apt-repository ppa:git-core/ppa && \
-  apt-add-repository ppa:fish-shell/release-2
+  apt-add-repository ppa:fish-shell/release-2 && \
+  add-apt-repository ppa:saiarcot895/myppa
   # add-apt-repository ppa:fish-shell/nightly-master
+
+# system update
+RUN \
+  apt-get update && \
+  apt-get -y upgrade
 
 # Launchpad locale mirror
 ARG MIRROR_LP
@@ -27,19 +38,17 @@ RUN \
     done; \
   fi
 
+RUN apt-get -y install apt-fast
+
 # system update
 RUN \
-  apt-get update && \
-  apt-get -y upgrade
+  apt-fast update && \
+  apt-fast -y upgrade
 
-RUN apt-get install -y git
+RUN apt-fast install -y git
 
 # zsh && fish
-RUN apt-get install -y fish zsh
-
-RUN \
-  apt-get autoremove -y && \
-  apt-get clean
+RUN apt-fast install -y fish zsh
 
 # Bash-it
 RUN \
@@ -71,8 +80,8 @@ RUN fish -lc "fisher omf/theme-robbyrussell"
 
 RUN echo "\
 set fish_greeting '' \n\
-set -x LC_ALL en_US.UTF-8 \n\
-set -x LC_CTYPE en_US.UTF-8 \
+set -gx LC_ALL en_US.UTF-8 \n\
+set -gx LC_CTYPE en_US.UTF-8 \
   " > ~/.config/fish/config.fish
 
 RUN \
@@ -81,3 +90,8 @@ RUN \
     mv /etc/apt/sources.list.d.bak \
       /etc/apt/sources.list.d; \
   fi
+
+RUN \
+	apt-fast autoremove -y && \
+	apt-fast autoclean && \
+	rm -rf /var/lib/apt/lists/*

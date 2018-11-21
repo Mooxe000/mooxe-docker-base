@@ -28,4 +28,5 @@ RUN apt-get install -y curl apt-utils
 
 RUN \
   apt-get autoremove -y && \
-  apt-get clean
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
