@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu
 
 MAINTAINER FooTearth "footearth@gmail.com"
 
@@ -20,11 +20,12 @@ RUN \
     ${SOURCES_FILE}
 
 # system update
+RUN apt-get update && \
+    apt-get install -y curl apt-utils
+
 RUN \
   apt-get update && \
   apt-get -y upgrade
-
-RUN apt-get install -y curl apt-utils
 
 RUN \
   apt-get autoremove -y && \

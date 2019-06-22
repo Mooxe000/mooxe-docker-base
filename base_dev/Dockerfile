@@ -11,8 +11,8 @@ RUN \
 RUN \
   apt-get install -y software-properties-common && \
   add-apt-repository ppa:git-core/ppa && \
-  apt-add-repository ppa:fish-shell/release-2 && \
-  add-apt-repository ppa:saiarcot895/myppa
+  apt-add-repository ppa:fish-shell/release-2
+  # add-apt-repository ppa:saiarcot895/myppa
   # add-apt-repository ppa:fish-shell/nightly-master
 
 # system update
@@ -38,7 +38,8 @@ RUN \
     done; \
   fi
 
-RUN apt-get -y install apt-fast
+RUN apt-get -y install aria2 wget && \
+    /bin/bash -c "$(curl -sL https://git.io/vokNn)"
 
 # system update
 RUN \
@@ -64,15 +65,23 @@ RUN \
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 # fisherman
+
 # curl -sL get.fisherman.sh | fish
+# curl -Lo ~/.config/fish/functions/fisher.fish \
+#   --create-dirs git.io/fisherman
+
+# curl -L https://get.oh-my.fish | fish
 RUN \
-  curl -Lo ~/.config/fish/functions/fisher.fish \
-    --create-dirs git.io/fisherman
+  curl -L https://get.oh-my.fish > install && \
+  fish install --noninteractive --path=~/.local/share/omf --config=~/.config/omf && \
+  rm -rf install
+
 # RUN git clone https://github.com/fisherman/fisherman ~/.local/share/fisherman && \
 #   cd ~/.local/share/fisherman && \
 #   make && cd ~
 
-RUN fish -lc "fisher omf/theme-robbyrussell"
+# RUN fish -lc "fisher omf/theme-robbyrussell"
+RUN fish -lc "omf install robbyrussell"
 # RUN git clone https://github.com/oh-my-fish/theme-robbyrussell.git \
 #     ~/.config/fisherman/cache/robbyrussell && \
 #   echo 'source ~/.config/fisherman/cache/robbyrussell/fish_prompt.fish' >> \
