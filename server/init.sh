@@ -7,7 +7,8 @@ add-apt-repository ppa:git-core/ppa && \
 apt-add-repository ppa:fish-shell/release-2
 
 apt-get update && \
-apt-get -y upgrade
+apt-get -y upgrade && \
+apt-get autoremove -y
 
 apt-get -y install aria2 wget && \
 /bin/bash -c "$(curl -sL https://git.io/vokNn)"
