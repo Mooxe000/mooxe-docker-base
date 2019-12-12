@@ -28,7 +28,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.15",
     "shelljs": "^0.4.0"
   }
 }
