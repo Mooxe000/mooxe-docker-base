@@ -11,7 +11,8 @@ RUN \
 RUN \
   apt-get install -y software-properties-common && \
   add-apt-repository ppa:git-core/ppa && \
-  apt-add-repository ppa:fish-shell/release-2
+  apt-add-repository ppa:fish-shell/release-2 && \
+  apt-add-repository ppa:apt-fast/stable
   # add-apt-repository ppa:saiarcot895/myppa
   # add-apt-repository ppa:fish-shell/nightly-master
 
@@ -38,8 +39,8 @@ RUN \
     done; \
   fi
 
-RUN apt-get -y install aria2 wget && \
-    /bin/bash -c "$(curl -sL https://git.io/vokNn)"
+RUN apt-get -y install aria2 wget apt-fast
+    # /bin/bash -c "$(curl -sL https://git.io/vokNn)"
 
 # system update
 RUN \
