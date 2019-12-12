@@ -47,6 +47,9 @@ RUN \
   apt-fast update && \
   apt-fast -y upgrade
 
+ENV http_proxy http://192.168.31.128:8118
+ENV https_proxy http://192.168.31.128:8118
+
 RUN apt-fast install -y git
 
 # zsh && fish
@@ -76,6 +79,9 @@ RUN \
   curl -L https://get.oh-my.fish > install && \
   fish install --noninteractive --path=~/.local/share/omf --config=~/.config/omf && \
   rm -rf install
+
+ENV http_proxy ''
+ENV https_proxy ''
 
 # RUN git clone https://github.com/fisherman/fisherman ~/.local/share/fisherman && \
 #   cd ~/.local/share/fisherman && \
