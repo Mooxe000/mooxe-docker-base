@@ -47,9 +47,6 @@ RUN \
   apt-fast update && \
   apt-fast -y upgrade
 
-ENV http_proxy http://192.168.31.128:8118
-ENV https_proxy http://192.168.31.128:8118
-
 RUN apt-fast install -y git
 
 # zsh && fish
@@ -73,15 +70,11 @@ RUN \
 # curl -sL get.fisherman.sh | fish
 # curl -Lo ~/.config/fish/functions/fisher.fish \
 #   --create-dirs git.io/fisherman
-
 # curl -L https://get.oh-my.fish | fish
 RUN \
   curl -L https://get.oh-my.fish > install && \
   fish install --noninteractive --path=~/.local/share/omf --config=~/.config/omf && \
   rm -rf install
-
-ENV http_proxy ''
-ENV https_proxy ''
 
 # RUN git clone https://github.com/fisherman/fisherman ~/.local/share/fisherman && \
 #   cd ~/.local/share/fisherman && \
@@ -98,7 +91,7 @@ RUN echo "\
 set fish_greeting '' \n\
 set -gx LC_ALL en_US.UTF-8 \n\
 set -gx LC_CTYPE en_US.UTF-8 \
-  " > ~/.config/fish/config.fish
+" > ~/.config/fish/config.fish
 
 RUN \
   if [ ! -z ${MIRROR_LP} ]; then \
