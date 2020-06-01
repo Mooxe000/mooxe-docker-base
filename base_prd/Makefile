@@ -2,10 +2,10 @@
 ImageName := mooxe/base:prd
 
 build:
-	docker build -t $(ImageName) .
+	buildah bud -t $(ImageName) .
 
 rebuild:
-	docker build --no-cache -t $(ImageName) .
+	buildah bud --no-cache -t $(ImageName) .
 
 publish:
-	docker push ${ImageName}
+	buildah push ${ImageName}

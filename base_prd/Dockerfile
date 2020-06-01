@@ -21,7 +21,9 @@ RUN \
 
 # system update
 RUN apt-get update && \
-    apt-get install -y curl apt-utils
+    apt-get install -y curl apt-utils locales
+
+RUN locale-gen en_US.UTF-8
 
 RUN \
   apt-get update && \

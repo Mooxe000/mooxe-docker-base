@@ -11,7 +11,7 @@ RUN \
 RUN \
   apt-get install -y software-properties-common && \
   add-apt-repository ppa:git-core/ppa && \
-  apt-add-repository ppa:fish-shell/release-2 && \
+  apt-add-repository ppa:fish-shell/release-3 && \
   apt-add-repository ppa:apt-fast/stable
   # add-apt-repository ppa:saiarcot895/myppa
   # add-apt-repository ppa:fish-shell/nightly-master

@@ -2,7 +2,7 @@
 ImageName := mooxe/base:dev
 
 build:
-	@cmd="docker build" && \
+	@cmd="buildah bud --layers" && \
 	if [ ! -z ${MIRROR_LP} ]; then \
 		cmd="$${cmd} \
 			--build-arg MIRROR_LP=$${MIRROR_LP} \
@@ -20,8 +20,8 @@ build:
 # env MIRROR_LP="192.168.0.108:8080\\/launchpad" make rebuild
 
 rebuild:
-	@cmd="docker build" && \
-	cmd="$${cmd} --no-cache"; \
+	@cmd="buildah bud --no-cache" && \
+	cmd="$${cmd}"; \
 	if [ ! -z ${MIRROR_LP} ]; then \
 		cmd="$${cmd} \
 			--build-arg MIRROR_LP=$${MIRROR_LP} \
@@ -37,4 +37,4 @@ rebuild:
 	bash -c "$${cmd}"
 
 publish:
-	docker push ${ImageName}
+	buildah push ${ImageName}
