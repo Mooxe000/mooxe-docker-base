@@ -4,7 +4,7 @@ apt-get install -y curl apt-utils
 
 apt-get install -y software-properties-common && \
 add-apt-repository ppa:git-core/ppa && \
-apt-add-repository ppa:fish-shell/release-2 && \
+apt-add-repository ppa:fish-shell/release-3 && \
 apt-add-repository ppa:apt-fast/stable
 
 apt-get update && \
