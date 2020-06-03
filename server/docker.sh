@@ -21,6 +21,6 @@ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://f1361db2
 
 service docker restart
 
-curl -L https://github.com/docker/compose/releases/download/1.24.1/\
+curl -L https://github.com/docker/compose/releases/download/1.26.0-rc4/\
 docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose

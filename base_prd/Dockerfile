@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM docker.io/library/ubuntu
 
 MAINTAINER FooTearth "footearth@gmail.com"
 
