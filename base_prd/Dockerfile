@@ -1,6 +1,6 @@
 FROM docker.io/library/ubuntu
 
-MAINTAINER FooTearth "footearth@gmail.com"
+# MAINTAINER FooTearth "footearth@gmail.com"
 
 WORKDIR /root
 

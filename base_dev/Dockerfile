@@ -1,18 +1,21 @@
-FROM mooxe/base:prd
+FROM localhost/mooxe/base:prd
 
-MAINTAINER FooTearth "footearth@gmail.com"
+# MAINTAINER FooTearth "footearth@gmail.com"
 
 # system update
 RUN \
   apt-get update && \
   apt-get -y upgrade
 
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Shanghai
+
 # extra ppa
 RUN \
   apt-get install -y software-properties-common && \
-  add-apt-repository ppa:git-core/ppa && \
-  apt-add-repository ppa:fish-shell/release-3 && \
-  apt-add-repository ppa:apt-fast/stable
+  yes '' | add-apt-repository ppa:git-core/ppa && \
+  yes '' | apt-add-repository ppa:fish-shell/release-3 && \
+  yes '' | apt-add-repository ppa:apt-fast/stable
   # add-apt-repository ppa:saiarcot895/myppa
   # add-apt-repository ppa:fish-shell/nightly-master
 
@@ -56,7 +59,7 @@ RUN apt-fast install -y fish zsh
 RUN \
   git clone --depth=1 https://github.com/Bash-it/bash-it.git \
     ~/.bash_it && \
-  bash -lc "~/.bash_it/install.sh"
+  yes | bash -lc "~/.bash_it/install.sh"
 
 # on my zsh
 RUN \
@@ -71,6 +74,7 @@ RUN \
 # curl -Lo ~/.config/fish/functions/fisher.fish \
 #   --create-dirs git.io/fisherman
 # curl -L https://get.oh-my.fish | fish
+
 RUN \
   curl -L https://get.oh-my.fish > install && \
   fish install --noninteractive --path=~/.local/share/omf --config=~/.config/omf && \
@@ -81,7 +85,9 @@ RUN \
 #   make && cd ~
 
 # RUN fish -lc "fisher omf/theme-robbyrussell"
+
 RUN fish -lc "omf install robbyrussell"
+
 # RUN git clone https://github.com/oh-my-fish/theme-robbyrussell.git \
 #     ~/.config/fisherman/cache/robbyrussell && \
 #   echo 'source ~/.config/fisherman/cache/robbyrussell/fish_prompt.fish' >> \
