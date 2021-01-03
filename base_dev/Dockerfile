@@ -75,8 +75,9 @@ RUN \
 #   --create-dirs git.io/fisherman
 # curl -L https://get.oh-my.fish | fish
 
+#  curl -L https://get.oh-my.fish > install && \
 RUN \
-  curl -L https://get.oh-my.fish > install && \
+  curl -L https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install > install && \
   fish install --noninteractive --path=~/.local/share/omf --config=~/.config/omf && \
   rm -rf install
 
